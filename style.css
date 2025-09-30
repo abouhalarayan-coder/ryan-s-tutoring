@@ -1,0 +1,80 @@
+/* Hero section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-image-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Button hover bounce */
+.btn {
+  transition: transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2.5rem 1rem;
+  }
+
+  .hero-image {
+    width: 70%;
+    max-width: 380px;
+    margin-top: 1rem;
+  }
+}
+
+/* Hero animations */
+.hero-content,
+.hero-image-wrap {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 1s ease-out;
+}
+
+.hero-image-wrap {
+  transform: translateX(50px);
+}
+
+.hero-content.animate,
+.hero-image-wrap.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Section fade-in on scroll */
+.section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.section.animate {
+  opacity: 1;
+  transform: translateY(0);
+}

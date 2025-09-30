@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ryan's Tutoring - Book</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- EmailJS library v3 -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("yBwK7meZcCp-hov0H"); // ← Your actual public key
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">Ryan's Tutoring</h1>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="booking.html" class="active">Book</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section">
+    <h2>Book a Lesson</h2>
+    <form id="bookingForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="date">Choose a Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Choose a Time</label>
+      <select id="time" name="time" required>
+        <option value="">Select a time</option>
+      </select>
+
+      <label for="message">Extra Details (optional)</label>
+      <textarea id="message" name="message"></textarea>
+
+      <button type="submit" class="btn">Confirm Booking</button>
+    </form>
+    <p id="bookingMessage"></p>
+  </main>
+
+  <footer>
+    <p>© 2025 Ryan's Coding Tutoring | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Available times
+    const availableTimes = ["17:00", "18:00", "19:00", "20:00", "21:00"];
+    const dateInput = document.getElementById("date");
+    const timeSelect = document.getElementById("time");
+    const bookingForm = document.getElementById("bookingForm");
+    const bookingMessage = document.getElementById("bookingMessage");
+
+    // Populate times on date change
+    if (dateInput && timeSelect) {
+      dateInput.addEventListener("change", () => {
+        timeSelect.innerHTML = '<option value="">Select a time</option>';
+        availableTimes.forEach(time => {
+          const opt = document.createElement("option");
+          opt.value = time;
+          opt.textContent = formatTime(time);
+          timeSelect.appendChild(opt);
+        });
+      });
+    }
+
+    // Booking form submit
+    if (bookingForm) {
+      bookingForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const date = dateInput.value;
+        const time = timeSelect.value;
+        const message = document.getElementById("message").value.trim();
+
+        if (!name || !email || !date || !time) {
+          bookingMessage.textContent = "⚠️ Please fill in all required fields.";
+          bookingMessage.style.color = "red";
+          return;
+        }
+
+        const btn = bookingForm.querySelector("button");
+        btn.disabled = true;
+        btn.textContent = "Booking...";
+
+        // Send booking via EmailJS
+        emailjs.send("service_k6xeyr5", "template_iq6j6qf", {
+          name: name,
+          email: email,
+          date: date,
+          time: formatTime(time),
+          message: message
+        })
+        .then(() => {
+          bookingMessage.textContent = `✅ Thank you ${name}! Your lesson is booked for ${date} at ${formatTime(time)}. A confirmation email has been sent.`;
+          bookingMessage.style.color = "green";
+          bookingForm.reset();
+          timeSelect.innerHTML = '<option value="">Select a time</option>';
+        })
+        .catch((err) => {
+          console.error("EmailJS Error:", err);
+          bookingMessage.textContent = "❌ Something went wrong. Please try again.";
+          bookingMessage.style.color = "red";
+        })
+        .finally(() => {
+          btn.disabled = false;
+          btn.textContent = "Confirm Booking";
+        });
+      });
+    }
+
+    // Format time to AM/PM
+    function formatTime(time) {
+      let [h, m] = time.split(":");
+      h = parseInt(h);
+      const suffix = h >= 12 ? "PM" : "AM";
+      h = ((h + 11) % 12) + 1;
+      return `${h}:${m} ${suffix}`;
+    }
+
+    // Hero animation
+    window.addEventListener("DOMContentLoaded", () => {
+      const heroContent = document.querySelector(".hero-content");
+      const heroImageWrap = document.querySelector(".hero-image-wrap");
+      if (heroContent) heroContent.classList.add("animate");
+      if (heroImageWrap) heroImageWrap.classList.add("animate");
+
+      const sections = document.querySelectorAll("section, main.section");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("animate");
+        });
+      }, { threshold: 0.2 });
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
+</body>
+</html>
