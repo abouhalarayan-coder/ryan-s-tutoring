@@ -1,5 +1,66 @@
-/* Hero section */
-.hero {
+/* ================== Shared Styles ================== */
+
+/* Body and general text */
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background: #f8f9fa;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.nav-links li {
+  display: inline-block;
+  margin-left: 1.5rem;
+}
+
+.nav-links a.active {
+  font-weight: bold;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background-color: #0056b3;
+}
+
+/* ================== Hero Section (Home & About) ================== */
+.hero, .about-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,8 +69,28 @@
   background: #f8f9fa;
 }
 
-.hero-content {
+.hero-content, .about-text {
   flex: 1;
+}
+
+.hero-content h2, .about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p, .about-text p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.about-text ul {
+  margin: 1.5rem 0;
+  padding-left: 1.2rem;
+}
+
+.about-text ul li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
 }
 
 .hero-image-wrap {
@@ -25,24 +106,15 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Button hover bounce */
-.btn {
-  transition: transform 0.2s ease;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-}
-
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .hero {
+  .hero, .about-container {
     flex-direction: column;
     text-align: center;
     padding: 2.5rem 1rem;
   }
 
-  .hero-image {
+  .hero-image, .about .hero-image {
     width: 70%;
     max-width: 380px;
     margin-top: 1rem;
@@ -50,8 +122,7 @@
 }
 
 /* Hero animations */
-.hero-content,
-.hero-image-wrap {
+.hero-content, .hero-image-wrap {
   opacity: 0;
   transform: translateX(-50px);
   transition: all 1s ease-out;
@@ -61,8 +132,7 @@
   transform: translateX(50px);
 }
 
-.hero-content.animate,
-.hero-image-wrap.animate {
+.hero-content.animate, .hero-image-wrap.animate {
   opacity: 1;
   transform: translateX(0);
 }
@@ -77,4 +147,13 @@
 .section.animate {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Footer */
+footer {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  background: #fff;
+  color: #555;
+  border-top: 1px solid #eee;
 }
