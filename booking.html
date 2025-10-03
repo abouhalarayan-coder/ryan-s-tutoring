@@ -37,6 +37,9 @@
       <label for="email">Your Email</label>
       <input type="email" id="email" name="email" required>
 
+      <label for="phone">Your Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="e.g. 123-456-7890" required>
+
       <label for="date">Choose a Date</label>
       <input type="date" id="date" name="date" required>
 
@@ -59,7 +62,11 @@
 
   <script>
     // Available times
-    const availableTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
+    const availableTimes = [
+      "9:00", "10:00", "11:00", "12:00",
+      "13:00", "14:00", "15:00", "16:00",
+      "17:00", "18:00"
+    ];
     const dateInput = document.getElementById("date");
     const timeSelect = document.getElementById("time");
     const bookingForm = document.getElementById("bookingForm");
@@ -84,11 +91,12 @@
         e.preventDefault();
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
         const date = dateInput.value;
         const time = timeSelect.value;
         const message = document.getElementById("message").value.trim();
 
-        if (!name || !email || !date || !time) {
+        if (!name || !email || !phone || !date || !time) {
           bookingMessage.textContent = "⚠️ Please fill in all required fields.";
           bookingMessage.style.color = "red";
           return;
@@ -102,6 +110,7 @@
         emailjs.send("service_k6xeyr5", "template_iq6j6qf", {
           name: name,
           email: email,
+          phone: phone,
           date: date,
           time: formatTime(time),
           message: message
