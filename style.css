@@ -37,36 +37,43 @@ ul {
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
 }
 
 .nav-links li {
+  margin-left: 1.5rem;
   display: inline-block;
-}
-
-.nav-links a {
-  padding: 0.5rem;
-  transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
-  color: #007bff;
 }
 
 .nav-links a.active {
   font-weight: bold;
-  color: #007bff;
 }
 
-/* ================== Buttons ================== */
+/* Mobile Navbar Fix */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+}
+
+/* ================== Button ================== */
 .btn {
   display: inline-block;
   background-color: #007bff;
   color: #fff;
   padding: 0.7rem 1.4rem;
   border-radius: 8px;
-  border: none;
-  cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -75,9 +82,8 @@ ul {
   background-color: #0056b3;
 }
 
-/* ================== Hero & About Sections ================== */
-.hero,
-.about-container {
+/* ================== Hero Section (Home & About) ================== */
+.hero, .about-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -86,19 +92,16 @@ ul {
   background: #f8f9fa;
 }
 
-.hero-content,
-.about-text {
+.hero-content, .about-text {
   flex: 1;
 }
 
-.hero-content h2,
-.about-text h2 {
+.hero-content h2, .about-text h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
-.hero-content p,
-.about-text p {
+.hero-content p, .about-text p {
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -126,44 +129,23 @@ ul {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* ================== Booking Form ================== */
-form {
-  max-width: 500px;
-  margin: 2rem auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .hero, .about-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 2.5rem 1rem;
+  }
 
-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-form input,
-form select,
-form textarea {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-form input:focus,
-form select:focus,
-form textarea:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+  .hero-image, .about .hero-image {
+    width: 70%;
+    max-width: 380px;
+    margin-top: 1rem;
+  }
 }
 
 /* ================== Animations ================== */
-.hero-content,
-.hero-image-wrap {
+.hero-content, .hero-image-wrap {
   opacity: 0;
   transform: translateX(-50px);
   transition: all 1s ease-out;
@@ -173,12 +155,12 @@ form textarea:focus {
   transform: translateX(50px);
 }
 
-.hero-content.animate,
-.hero-image-wrap.animate {
+.hero-content.animate, .hero-image-wrap.animate {
   opacity: 1;
   transform: translateX(0);
 }
 
+/* Section fade-in on scroll */
 .section {
   opacity: 0;
   transform: translateY(50px);
@@ -190,6 +172,36 @@ form textarea:focus {
   transform: translateY(0);
 }
 
+/* ================== Booking Form ================== */
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+form input, form select, form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
 /* ================== Footer ================== */
 footer {
   padding: 1.5rem 2rem;
@@ -197,44 +209,4 @@ footer {
   background: #fff;
   color: #555;
   border-top: 1px solid #eee;
-}
-
-/* ================== Mobile Responsive ================== */
-@media (max-width: 768px) {
-  /* Stack hero/about */
-  .hero,
-  .about-container {
-    flex-direction: column;
-    text-align: center;
-    padding: 2.5rem 1rem;
-  }
-
-  .hero-image,
-  .about .hero-image {
-    width: 70%;
-    max-width: 380px;
-    margin-top: 1rem;
-  }
-
-  /* Stack navbar */
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1rem;
-    width: 100%;
-  }
-
-  .nav-links li {
-    display: block;
-  }
-
-  .nav-links a {
-    display: block;
-    padding: 0.5rem 0;
-  }
 }
